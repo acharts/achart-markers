@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "markers in chart,for series",
   "keywords": [],
-  "homepage": "",
+  "homepage": "https://github.com/acharts/achart-markers",
   "author": "dxq613@gmail.com",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/acharts/achart-markers.git"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/acharts/achart-markers/issues"
   },
   "licenses": "MIT",
   "spm": {
