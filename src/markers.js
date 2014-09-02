@@ -112,10 +112,16 @@ Util.augment(Markers,{
 			var marker = children[index];
 			if(marker){
 				if(Util.svg){
-					marker.animate({
+					var info = {
 						x : item.x,
 						y : item.y
-					},400);
+					};
+					if(_self.get('animate')){
+						marker.animate(info,400);
+					}else{
+						marker.attr(info);
+					}
+					
 				}else{
 					marker.attr(item);
 				}
