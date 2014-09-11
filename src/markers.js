@@ -15,6 +15,7 @@ var
  * @class Chart.Markers
  * 显示点的标记集合
  * @extends Chart.PlotItem
+ * @mixins Cahrt.ActivedGroup
  */
 var Markers = function(cfg){
 	Markers.superclass.constructor.call(this,cfg);
@@ -57,6 +58,16 @@ Util.augment(Markers,{
 		_self.set('xCache',[]);
 		Markers.superclass.renderUI.call(_self);
 		_self._drawMarkers();
+	},
+	bindUI : function(){
+		var _self = this;
+
+		_self.on('click',function(ev){
+			var shape = ev.target.shape;
+			if(shape){
+				_self.fire('markerclick',{marker : shape,item : shape.get('item')});
+			}
+		});
 	},
 	/**
 	 * @protected
@@ -112,16 +123,20 @@ Util.augment(Markers,{
 			var marker = children[index];
 			if(marker){
 				if(Util.svg){
-					var info = {
-						x : item.x,
-						y : item.y
-					};
+
 					if(_self.get('animate')){
+						var info = {
+							x : item.x,
+							y : item.y
+						},
+						temp = Util.mix({},item);
+						delete temp.x;
+						delete temp.y;
 						marker.animate(info,400);
+						marker.attr(temp);
 					}else{
-						marker.attr(info);
+						marker.attr(item);
 					}
-					
 				}else{
 					marker.attr(item);
 				}
@@ -130,6 +145,7 @@ Util.augment(Markers,{
 				}else{
 					xCache.push(item.x);
 				}
+				marker.set('item',item);
 				
 			}else{
 				_self._addMarker(item);
@@ -178,8 +194,10 @@ Util.augment(Markers,{
 		}else{
 			xCache.push(parseInt(item.x));
 		}
-		
-		return _self.addShape('marker',cfg);
+
+		var shape = _self.addShape('marker',cfg);
+		shape.set('item',item);
+		return shape;
 	},
 	/**
 	 * 获取逼近的marker

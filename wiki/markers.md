@@ -1,8 +1,32 @@
-# Demo
+# Markers 使用
 
 ---
 
-## Normal usage
+使用和扩展marker
+
+---
+
+
+## 目录
+
+  * marker的类型
+  * 扩展marker
+  * marker 事件
+
+### marker 的类型
+
+  * marker 是Canvas.Shape.Marker类，通过 symbol来标示类型：
+
+    * circle
+    * square
+    * diamond
+    * triangle
+    * triangle-down
+  
+    * 如果symbol是一个 URL ，则代表是是一个图片
+    * 如果symbol是一个 Function 则根据返回的path，创建图形，函数原型 function(x,y,r)
+
+
 
 ````html
 
@@ -51,7 +75,61 @@ seajs.use(['index','achart-canvas'], function(Markers,Canvas) {
 });
 ````
 
-## extension marker's type
+### marker 扩展
+
+  * Marker的静态属性 Symbols上存在各个类别对应生成path的函数：
+
+  ```js
+
+  Marker.Symbols = {
+    //圆
+    circle : function(x,y,r){
+      return [['M',x,y - r],['a',r,r,0,1,1,0,2*r],['a',r,r,0,1,1,0,-2*r],['z']];
+    },
+    //正方形
+    square : function(x,y,r){
+      return [['M',x-r,y-r],['L',x + r,y-r],['L',x + r,y + r],['L',x - r,y + r],['z']];
+    },
+    //菱形
+    diamond : function(x,y,r){
+      return [['M',x - r,y],['L',x,y - r],['L',x + r, y],['L',x,y + r],['z']];
+    },
+    //三角形
+    triangle : function(x,y,r){
+      var diffX = r / 0.866,
+        diffY =  r;
+      return [['M',x,y-r],['L',x + diffX,y + diffY],['L',x - diffX, y + diffY],['z']];
+    },
+    //倒三角形
+    'triangle-down' : function(x,y,r){
+      var diffX = r / 0.866,
+        diffY =  r;
+      return [['M',x,y + r],['L',x + diffX, y - diffY],['L',x - diffX,y - diffY],['z']];
+    }
+  };
+
+  ```
+
+  * 可以在Canvas.Shape.Markers.Symbols上注册自己的类型
+
+    ```js   
+      Canvas.Shape.Markers.Symbols.Ring = function(x,y,r){
+        return [['M',x,y - r],['a',r,r,0,1,1,0,2*r],['a',r,r,0,1,1,0,-2*r],['M',x,y-r+2],['a',r-2,r-2,0,1,0,0,2*(r-2)],['a',r-2,r-2,0,1,0,0,-2*(r - 2)],['z']];
+      }
+
+    ```
+
+  * symbol也可以接受Function类型的参数，根据函数返回对应的path
+
+    ```js
+
+      symbol : function(x,y,r){
+        return [['M',x,y - r],['a',r,r,0,1,1,0,2*r],['a',r,r,0,1,1,0,-2*r],['M',x,y-r+2],['a',r-2,r-2,0,1,0,0,2*(r-2)],['a',r-2,r-2,0,1,0,0,-2*(r - 2)],['z']];
+      }
+
+    ```
+
+### 示例
 
 ````html
 
@@ -110,3 +188,10 @@ seajs.use(['index','achart-canvas'], function(Markers,Canvas) {
 
 });
 ````
+
+### 事件
+
+  * markers提供了 markerclick 事件，通过ev.item获取到设置信息
+
+
+

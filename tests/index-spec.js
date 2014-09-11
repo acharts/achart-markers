@@ -1,4 +1,6 @@
-var expect = require('expect.js');
+var expect = require('expect.js'),
+  sinon = require('sinon'),
+  simulate = require('event-simulate');
 var Markers = require('../index'),
   Canvas = require('achart-canvas'),
   Util = require('achart-util');
@@ -18,10 +20,12 @@ describe('achart-markers', function() {
   var markers = canvas.addGroup(Markers,{
     marker : {
       symbol : 'circle',
+      fill : 'blue',
       radius : 5
     },
     actived : {
       stroke : 'red',
+
       radius : 8
     },
     items : [
@@ -75,6 +79,20 @@ describe('achart-markers', function() {
     markers.clearActivedItem(item);
     expect(item.attr('radius')).to.be(5);
 
+  });
+
+  it('markerclick',function(){
+    var item = markers.getFirst(),
+      callback = sinon.spy();
+
+    markers.on('markerclick',function(ev){
+      expect(ev.item).not.to.be(undefined);
+      expect(ev.marker).to.be(item);
+      callback();
+    });
+
+    simulate.simulate(item.get('node'),'click');
+    expect(callback.called).to.be(true);
   });
 
 });
