@@ -2,7 +2,7 @@
   "name": "achart-markers",
   "version": "1.0.0",
   "description": "markers in chart,for series",
-  "keywords": [],
+  "keywords": ["achart","achart-markers"],
   "homepage": "https://github.com/acharts/achart-markers",
   "author": "dxq613@gmail.com",
   "repository": {
