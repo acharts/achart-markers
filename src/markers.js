@@ -65,7 +65,7 @@ Util.augment(Markers,{
 		_self.on('click',function(ev){
 			var shape = ev.target.shape;
 			if(shape){
-				_self.fire('markerclick',{marker : shape,item : shape.get('item')});
+				_self.fire('markerclick',{marker : shape,point : shape.get('point')});
 			}
 		});
 	},
@@ -123,7 +123,6 @@ Util.augment(Markers,{
 			var marker = children[index];
 			if(marker){
 				if(Util.svg){
-
 					if(_self.get('animate')){
 						var info = {
 							x : item.x,
