@@ -48,6 +48,14 @@ Markers.ATTRS = {
 	 * @private
 	 */
 	xCache : null
+
+	/**
+	 * @event markerclick
+	 * 点击marker
+	 * @param {Object} ev 事件对象
+	 * @param {Object} ev.marker 点击的marker
+	 * @param {Object} ev.point 点击的marker对应的点信息
+	 */
 };
 
 Util.augment(Markers,{

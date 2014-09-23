@@ -41,7 +41,7 @@ var Markers = require('achart-markers');
   * markerclick 点击marker
 
     * ev.marker 点击的marker
-    * ev.item marker代表的item
+    * ev.point marker代表的点的信息
 
 ### 更多
 
