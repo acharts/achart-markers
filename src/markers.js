@@ -14,8 +14,12 @@ var
 /**
  * @class Chart.Markers
  * 显示点的标记集合
- * @extends Chart.PlotItem
- * @mixins Cahrt.ActivedGroup
+ * 
+ *  - <a href="http://spmjs.io/docs/achart-markers/" target="_blank">文档</a>
+ *  - <a href="http://spmjs.io/docs/achart-markers/wiki/" target="_blank">wiki</a>
+ *  
+ * @extends Chart.Plot.Item
+ * @mixins Chart.Actived.Group
  */
 var Markers = function(cfg){
 	Markers.superclass.constructor.call(this,cfg);
@@ -73,7 +77,8 @@ Util.augment(Markers,{
 		_self.on('click',function(ev){
 			var shape = ev.target.shape;
 			if(shape){
-				_self.fire('markerclick',{marker : shape,point : shape.get('point')});
+				var point = shape.get('point') || shape.get('item');
+				_self.fire('markerclick',{marker : shape,point : point});
 			}
 		});
 	},

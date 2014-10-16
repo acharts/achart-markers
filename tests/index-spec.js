@@ -86,7 +86,7 @@ describe('achart-markers', function() {
       callback = sinon.spy();
 
     markers.on('markerclick',function(ev){
-      expect(ev.item).not.to.be(undefined);
+      expect(ev.point).not.to.be(undefined);
       expect(ev.marker).to.be(item);
       callback();
     });
