@@ -1,6 +1,6 @@
 {
   "name": "achart-markers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "markers in chart,for series",
   "keywords": ["achart","achart-markers"],
   "homepage": "https://github.com/acharts/achart-markers",
@@ -16,9 +16,9 @@
   "spm": {
     "main": "index.js",
     "dependencies": {
-      "achart-util" : "1.0.0",
-      "achart-actived" : "1.0.0",
-      "achart-plot" : "1.0.0"
+      "achart-util" : "~1.1.0",
+      "achart-actived" : "~1.0.0",
+      "achart-plot" : "~1.1.1"
     },
     "devDependencies": {
       "expect.js": "0.3.1",
